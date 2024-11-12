@@ -1,0 +1,63 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.5'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot와 Thymeleaf 템플릿 엔진을 사용하기 위한 의존성(html)
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// Spring Boot 웹 애플리케이션 개발을 위한 의존성 (서블릿, HTTP 요청/응답 처리 등)
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Lombok을 사용하여 반복되는 코드(예: getter, setter 등)를 자동으로 생성
+	implementation 'org.projectlombok:lombok'
+
+	// 개발 중 자동으로 애플리케이션을 재시작하고, 추가적인 디버깅 기능 제공
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Lombok을 사용하기 위해 필요한 annotationProcessor 의존성
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// 테스트를 위한 Spring Boot 테스트 의존성
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// JUnit 플랫폼 런처로 JUnit 테스트 실행
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Spring Data JDBC를 사용하여 JDBC 데이터베이스 작업을 처리하는 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+
+	// MariaDB와의 연결을 위한 MariaDB JDBC 드라이버 의존성 (JDK 21 호환 버전)
+	implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
+
+// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+
+}
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
