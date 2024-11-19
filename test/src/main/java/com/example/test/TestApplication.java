@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 @SpringBootApplication()
-
+@MapperScan("com.example.test.mapper")
 public class TestApplication {
 
     public static void main(String[] args) {

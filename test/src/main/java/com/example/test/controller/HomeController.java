@@ -1,8 +1,12 @@
 package com.example.test.controller;
 
 import com.example.test.dto.BoardDTO;
+import com.example.test.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +19,12 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping("/")
 public class HomeController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping
     public String index(){
@@ -39,4 +49,15 @@ public class HomeController {
         log.info(String.valueOf(file.getSize()));
         log.info(file.getContentType());
     }
+
+
+    @PostMapping("/register")
+    public String registerUser(Model model){
+        String generatedNickname = userService.generateRandomNickname(); // 랜덤 닉네임 생성
+        userService.saveUser(generatedNickname); // 생성된 닉네임 DB에 저장
+        model.addAttribute("message", "회원가입이 완료되었습니다. 닉네임: " + generatedNickname);
+        return "registrationSuccess"; // 회원가입 성공 페이지
+    }
+
+
 }

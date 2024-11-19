@@ -9,7 +9,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(18)
 	}
 }
 
@@ -49,11 +49,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
 	// MariaDB와의 연결을 위한 MariaDB JDBC 드라이버 의존성 (JDK 21 호환 버전)
-	implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
+	runtimeOnly 'mysql:mysql-connector-java'
 
 // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 
+	// security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 }
 
